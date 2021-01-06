@@ -21,7 +21,7 @@ export default function PhotoGallery({ photos }) {
   const [touchEnd, setTouchEnd] = React.useState(0);
 
   const handleTouchStart = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     setTouchStart(e.targetTouches[0].clientX);
   };
 
