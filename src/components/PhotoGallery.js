@@ -57,10 +57,6 @@ export default function PhotoGallery({ photos }) {
     checkForSwipe();
   };
 
-  const handleMouseLeave = () => {
-    checkForSwipe();
-  };
-
   return (
     <>
       {photos
@@ -76,7 +72,6 @@ export default function PhotoGallery({ photos }) {
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
-                onMouseLeave={handleMouseLeave}
               >
                 <img className='photo' src={photo.url} alt={photo.caption} />
                 <MdNavigateBefore onClick={prevPhoto} className='icon before' />
