@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 
 export default function PhotoGallery({ photos }) {
+  const [photoIndex, setPhotoIndex] = useState(0);
+
   const prevPhoto = () => {
-    console.log('previous photo');
+    let prevIndex = photoIndex - 1;
+    if (prevIndex == -1) {
+      prevIndex = photos.length - 1;
+    }
+    setPhotoIndex(prevIndex);
   };
 
   const nextPhoto = () => {
-    console.log('next photo');
+    let nextIndex = photoIndex + 1;
+    setPhotoIndex(nextIndex % photos.length);
   };
 
   return (
