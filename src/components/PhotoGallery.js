@@ -14,11 +14,13 @@ export default function PhotoGallery({ photos }) {
     <>
       {photos.map((photo, index) => {
         return (
-          <div key={index}>
-            <img src={photo.url} alt={photo.caption} />
-            <MdNavigateBefore onClick={prevPhoto} />
-            <MdNavigateNext onClick={nextPhoto} />
-            <p>{photo.caption}</p>
+          <div className='photo-container-outer' key={index}>
+            <div className='photo-container-inner'>
+              <img className='photo' src={photo.url} alt={photo.caption} />
+              <MdNavigateBefore onClick={prevPhoto} className='icon before' />
+              <MdNavigateNext onClick={nextPhoto} className='icon next' />
+              <p className='caption'>{photo.caption}</p>
+            </div>
           </div>
         );
       })}
