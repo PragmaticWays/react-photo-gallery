@@ -17,6 +17,50 @@ export default function PhotoGallery({ photos }) {
     setPhotoIndex(nextIndex % photos.length);
   };
 
+  const [touchStart, setTouchStart] = React.useState(0);
+  const [touchEnd, setTouchEnd] = React.useState(0);
+
+  const handleTouchStart = (e) => {
+    e.preventDefault();
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    checkForSwipe();
+  };
+
+  const checkForSwipe = () => {
+    let swipeSensitivity = 100;
+    if (touchStart - touchEnd > swipeSensitivity) {
+      nextPhoto();
+    }
+
+    if (touchStart - touchEnd < -1 * swipeSensitivity) {
+      prevPhoto();
+    }
+  };
+
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    setTouchStart(e.clientX);
+  };
+
+  const handleMouseMove = (e) => {
+    setTouchEnd(e.clientX);
+  };
+
+  const handleMouseUp = () => {
+    checkForSwipe();
+  };
+
+  const handleMouseLeave = () => {
+    checkForSwipe();
+  };
+
   return (
     <>
       {photos
@@ -24,7 +68,16 @@ export default function PhotoGallery({ photos }) {
         .map((photo, index) => {
           return (
             <div className='photo-container-outer' key={index}>
-              <div className='photo-container-inner'>
+              <div
+                className='photo-container-inner'
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseLeave}
+              >
                 <img className='photo' src={photo.url} alt={photo.caption} />
                 <MdNavigateBefore onClick={prevPhoto} className='icon before' />
                 <MdNavigateNext onClick={nextPhoto} className='icon next' />
